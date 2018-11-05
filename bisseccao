@@ -1,0 +1,81 @@
+import math
+
+def printIntermed(a,b,p,FP): #auxiliar para formatação
+    print("a: %.6f\t" % (a), end = '')
+    print("p: %.6f\t" % (p), end = '')
+    print("b: %.6f\t" % (b), end = '')
+    print("f(p): %.6f (aproximados)" % (FP), end = '')
+    print("\n")
+
+
+def bisseccao(f,a,b,epsilon, maxIter): #epsilon é a tolerância
+
+    FA = f(a)
+    i = 1
+    sucesso = False
+    while i <= maxIter:
+        p = a + ((b-a)/2) #calcula p (intermediario)
+        FP = f(p)
+        printIntermed(a,b,p,FP)
+        if (FP==0) or ( (b-a) < epsilon ):
+            print("A solução aproximada será: %.5f" % p)
+            print("Procedimento concluído com sucesso\n\n")
+            sucesso = True
+            break
+        i+=1
+        if (FA*FP) > 0:
+            a = p
+            FA = FP
+        else:
+            b = p
+            
+    if not sucesso:
+        print("O método falhou após %d iteracoes" % i)
+        print("Procedimento mal-sucedido\n\n")
+
+
+def fA(x): 
+    return x -(2**(-x))
+# x (maior ou igual a 0) e (menor ou igual a 1)
+a1 =0
+a2 =1
+
+def fB(x):
+    e = 2.7182818284590452353602874713527
+    return (e**x) -(x**2) +(3*x) -2
+# x (maior ou igual a 0) e (menor ou igual a 1)
+b1 =0
+b2 =1
+
+def fC(x):
+    return 2*(math.cos(math.radians(2*x))) -((x+1)**2)
+# x (maior ou igual a -3) e (menor ou igual a -2)
+c1 =-3
+c2 =-2
+# x (maior ou igual a -1) e (menor ou igual a 0)
+c3 =-1
+c4 =0
+
+def fD(x):
+    return x*(math.cos(math.radians(x))) -((2*x)**2) +(3*x) -1
+# x (maior ou igual a 0.2) e (menor ou igual a 0.3)
+d1 =0.2
+d2 =0.3
+# x (maior ou igual a 1.2) e (menor ou igual a 1.3)
+d3 =1.2
+d4 =1.3
+
+
+tolerancia = 1e-5
+maxIter = 100
+
+print("\n\t\t\tFunção a.\n\n")
+bisseccao(fA,a1,a2,tolerancia,maxIter)
+print("\n\t\t\tFunção b.\n\n")
+bisseccao(fB,b1,b2,tolerancia,maxIter)
+print("\n\t\t\tFunção c.\n\n")
+bisseccao(fC,c1,c2,tolerancia,maxIter)
+bisseccao(fC,c3,c4,tolerancia,maxIter)
+print("\n\t\t\tFunção d.\n\n")
+bisseccao(fD,d1,d2,tolerancia,maxIter)
+bisseccao(fD,d3,d4,tolerancia,maxIter)
